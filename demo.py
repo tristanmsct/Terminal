@@ -3,7 +3,7 @@
 """
 Created on Tue Feb 11 17:52:53 2020.
 
-@author: tristan
+@author: Tristan Muscat
 """
 
 # Packages

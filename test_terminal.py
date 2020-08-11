@@ -3,7 +3,7 @@
 """
 Created on Tue Aug 11 11:50:14 2020
 
-@author: tristan
+@author: Tristan Muscat
 """
 
 from terminal import InputManager as im
