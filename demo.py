@@ -1,22 +1,11 @@
-# Coman
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Feb 11 17:52:53 2020.
 
-## How to install
+@author: tristan
+"""
 
-First download the whole thing and unzip it. Then navigate to the package directory. Typically :
-
-`$ cd ~/Downloads/Terminal`
-
-You can use the installer :
-
-`$ ./install`
-
-Or you can paste the "terminal" directory in the site-package of your python installation. The ./install file take care of that and install the package in your current python environment while also install all the dependencies.
-
-## How to use terminal
-
-Content of the `demo.py` file :
-
-```Python
 # Packages
 from terminal import InputManager as im
 
@@ -56,4 +45,3 @@ print(f'You chose {int_res}.')
 int_res = im.force_read(im.read_numeric, 'Choose a number between 1 and 10 :\n', bl_int=True,
                         num_lb=1, num_ub=10, bl_inc_lb=True, bl_inc_ub=True)
 print(f'You chose {int_res}.')
-```

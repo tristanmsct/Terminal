@@ -8,229 +8,170 @@ Created on Tue Apr 23 21:58:12 2019.
 
 
 # =====================================================================================================================
-# Classe d'erreurs spécifiques aux saisies clavier
+# Error class specific to typos
 # =====================================================================================================================
 
 
 class InputException(Exception):
-    """Erreur de saisie."""
+    """Typing error."""
 
     def __init__(self, message):
-        """Constructeur de l'erreur."""
         super(InputException, self).__init__(message)
 
 
 # =====================================================================================================================
-# Module de gestion des saisies
+# Input management module
 # =====================================================================================================================
 
 
 class InputManager:
-    """Manager de saisie clavier."""
+    """Manager user inputs."""
 
-    def read_line(str_prompt, bool_case=False, set_char=None):
-        """Fonction de lecture d'une chaine de caractère.
+    def read_line(str_prompt, bl_case=False, lst_values=None):
+        """Read an input from the user after a prompt.
 
-        On prompt une saisie utilisateur et on regarde si elle appartient à un ensemble de mots attendus.
+        The function prompt a user to enter an input, then verifies that the input is valid.
 
         Parameters
         ----------
         str_prompt: str
-            le prompt affiché en premier pour demander la saisie.
-        bool_case: bool
-            booléen indiquant si la saisie doit respecter la casse ou non.
-        set_char: set
-            ensemble de valeurs que peuvent prendre la saisie.
+            The prompt displayed while waiting for an input.
+        bl_case: boolean, optinal
+            Should the program check for case. Default is False.
+        set_test: set, optinal
+            set of valid values the input can be. If None then the input can be anything. Default is None.
 
         Returns
         -------
         str_input: str
-            La chaine saisie et testée.
+            The input validated.
         """
-        str_input = input(str_prompt)  # Récuperation de la saisie
+        str_input = input(str_prompt)  # To prompt an input.
 
-        # Test un peu basique mais c'est surtout pour en rajouter plus tard si il faut
+        # Gotta be sure.
         if str_input is None:
-            raise InputException("Erreur de saisie !")
+            raise InputException("Input error !")
 
-        # Si on veut verifier que la saisie est dans un ensemble donné, on se demande tout d'abord
-        # si il doit respecter la case
+        # First, if the case is not important, the string and the set of valid strings are transformed in lower case.
+        # The input is stored in a temporary variable to keep the original case.
         str_test = str_input
-        if not bool_case:
+        if not bl_case:
             str_test = str_input.lower()
-            if set_char is not None:
-                set_char = [x.lower() for x in set_char]
+            if lst_values is not None:
+                lst_values = {x.lower() for x in lst_values}
 
-        # Si un ensemble est fourni alors on vérifie que l'input en fait partie
-        if set_char is not None and str_test not in set_char:
-            raise InputException("Erreur de saisie !")
+        # if a set is given, then we check the input is in this set.
+        if lst_values is not None and str_test not in lst_values:
+            raise InputException("Input error !")
 
         return str_input
 
-    def read_char(str_prompt, bool_case=True, set_char=None):
-        """Fonction de lecture d'un seul caractère eventuellement dans un ensemble.
+    def read_yes_no(str_prompt, lst_pos_vals=None, lst_neg_vals=None, bl_res_bolean=True):
+        """Ask a yes or no question and get the answer.
 
-        On demande à l'utilisateur de ne saisir qu'un seul caractère. Si on fournit un ensemble de test
-        on compare la saisie à cet ensemble pour valider la saisie.
-
-        Parameters
-        ----------
-        str_prompt: str
-            le prompt affiché en premier pour demander la saisie.
-        bool_case: bool
-            booléen indiquant si la saisie doit respecter la casse ou non.
-        set_char: set
-            un ensemble de char à choisir.
-
-        Returns
-        -------
-        str_input: str
-            La saisie.
-        """
-        str_input = InputManager.read_line(str_prompt)  # récuperation sécurisée de la saisie
-
-        # Si on veut verifier que la saisie est dans un ensemble donné, on se demande tout d'abord
-        # si il doit respecter la case
-        str_test = str_input
-        if not bool_case:
-            str_test = str_input.lower()
-            if set_char is not None:
-                set_char = [x.lower() for x in set_char]
-
-        # Si un ensemble est fourni alors on vérifie que l'input en fait partie
-        if (set_char is not None and str_test not in set_char) or len(str_test) > 1:
-            raise InputException("Erreur de saisie !")
-
-        return str_input
-
-    def read_yes_no(str_prompt):
-        """Fonction de lecture d'une réponse oui ou non à une question donnée.
-
-        On compare la saisie à un ensemble de valeurs qui correspondent à oui où non. La casse n'est pas importante.
+        Compare the input to a set of accepted values. Returns the answer or an indicator that the answer is valid.
 
         Paramters
         ---------
         str_prompt: str
-            le prompt affiché au début pour demander la saisie à l'utilisateur.
+            The prompt displayed while waiting for an input.
+        lst_pos_vals: list, optinal
+            set of positive valid values the input can be. If None then a default set is used. Default is None.
+        lst_neg_vals: list, optinal
+            set of negative valid values the input can be. If None then a default set is used. Default is None.
+        bl_res_bolean: bool, optinal
+            Should the function return the answer or indicate if the answer is valid. Default is True.
 
         Returns
         -------
-        str_input: str
-            La réponse.
+        res:
+            the response, can be a string or a boolean.
         """
-        # Fonction "préfabriquée" pour récuperer un oui ou un non
-        str_input = InputManager.read_line(str_prompt, False, ['y', 'n', 'o', 'yes', 'no', 'oui', 'non'])
+        # If no set is provided for the validation, we use a default set of values.
+        # We use a or here, because if one is forgotten, might as well use default for both.
+        if lst_pos_vals is None or lst_neg_vals is None:
+            lst_pos_vals = ['yes', 'y', 'oui', 'o']
+            lst_neg_vals = ['no', 'n', 'non']
 
-        return str_input
+        # Now we ask the question, get the answer and check it.
+        res = InputManager.read_line(str_prompt, False, lst_pos_vals + lst_neg_vals)
 
-    def read_true_false(str_prompt):
-        """Fontion de lecture d'un booléen.
+        # If the expected returned value is a boolean we convert it.
+        if bl_res_bolean:
+            res = res in lst_pos_vals
 
-        Fonction de lecture d'une réponse oui ou non à une question donnée
-        Avec conversion en True ou False.
+        return res
+
+    def read_numeric(str_prompt, bl_int=True, num_lb=None, num_ub=None, bl_inc_lb=True, bl_inc_ub=True):
+        """Read a numeric (integer or not) value between bonds.
 
         Parameters
         ----------
         str_prompt: str
-            le prompt affiché au début pour demander la saisie à l'utilisateur.
+            The prompt displayed while waiting for an input.
+        bl_int: bool, optional
+            Should the input be an integer or can it be a float.
+        num_lb: num, optional
+            The lower bound. The default is None.
+        num_ub: num, optional
+            The upper bound. The default is None.
+        bl_inc_lb: bool, optional
+            Should the lower bound be included or not. The default is True.
+        bl_inc_ub: num, optional
+            Should the upper bound be included or not. The default is True.
 
         Returns
         -------
-        str_input: str
-            La réponse.
+        num_input:
+            The input, can be an integer or a float.
         """
-        # Fonction "préfabriquée" pour récuperer un oui ou un non
-        str_input = InputManager.read_line(str_prompt, False, ['y', 'n', 'o', 'yes', 'no', 'oui', 'non', 'T', 'F',
-                                                               'V', 'False', 'True', 'Vrai', 'Faux'])
+        str_input = InputManager.read_line(str_prompt)  # Getting the input.
 
-        bool_input = False
-        if str_input.lower() in [word.lower() for word in ['y', 'yes', 'o', 'oui', 'T', 'V', 'True', 'Vrai']]:
-            bool_input = True
-
-        return bool_input
-
-    def read_numeric(str_prompt, bool_int=True, num_borne_inf=None, num_borne_sup=None,
-                     bool_bi_incluse=True, bool_bs_incluse=True):
-        """Fonction de lecture d'un numérique (entier ou non) borné ou non.
-
-        Parameters
-        ----------
-        str_prompt: str
-            l'invite de commande affiché au début pour demander la saisie à l'utilisateur.
-        bool_int: bool, optional
-            un booleen indiquant si on attend un entier ou non. The default is True.
-        num_borne_inf: num, optional
-            la borne inférieur, entière ou non. The default is None.
-        num_borne_sup: num, optional
-            la borne supérieur, entière ou non. The default is None.
-        bool_bi_incluse: bool, optional
-            Indique si la borne inférieur est incluse ou non. The default is True.
-        bool_bs_incluse: num, optional
-            Indique si la borne supérieur est incluse ou non. The default is True.
-
-        Returns
-        -------
-        str_input: str
-            La saisie.
-        """
-        str_input = InputManager.read_line(str_prompt)  # récuperation sécurisée de la saisie
-
-        # On verifie tout d'abord que la saisie est numérique (est-ce qu'elle peut être convertie en float)
-        try:
-            float(str_input)
-        except ValueError:
-            raise InputException("La saisie doit être numérique")
-
-        # Si c'est le cas on la convertie en int ou en float en fonction
-        if bool_int:
+        if bl_int:
             try:
-                str_input = int(str_input)
+                num_input = int(str_input)
             except ValueError:
-                raise InputException("La saisie doit être un entier")
+                raise InputException("Input must be an integer.")
         else:
             try:
-                str_input = float(str_input)
+                num_input = float(str_input)
             except ValueError:
-                raise InputException("Erreur inconnue")
+                raise InputException("Input must be numeric.")
 
-        # Puis on s'occupe des bornes, on construit le test et on l'évalue
-        if num_borne_sup is not None:
-            test_sup = "<=" + str(num_borne_sup) if bool_bs_incluse else "<" + str(num_borne_sup)
-            if not eval(str(str_input) + test_sup):
-                raise InputException("La saisie est trop grande")
+        if (num_ub is not None and ((bl_inc_ub and num_input > num_ub) or (not bl_inc_ub and num_input >= num_ub))):
+            raise InputException("Expected a smaller input.")
 
-        if num_borne_inf is not None:
-            test_sup = ">=" + str(num_borne_inf) if bool_bi_incluse else ">" + str(num_borne_inf)
-            if not eval(str(str_input) + test_sup):
-                raise InputException("La saisie est trop petite")
+        if (num_lb is not None and ((bl_inc_lb and num_input < num_lb) or (not bl_inc_lb and num_input <= num_lb))):
+            raise InputException("Expected a bigger input.")
 
-        return str_input
+        return num_input
 
-    def force_read(fun_reader, *argv):
-        """Fonction qui boucle tant que la saisie est incorrecte.
+    def force_read(fun_reader, *argv, **kwargs):
+        """Loop until it gets a valid inputs.
 
-        Fonction qui force la saisie en attrapant les erreurs de saisie
-        et en en demandant une nouvelle
+        Ask an input and ask again if their is an error. It allows a program not to crash because of a typo.
 
         Parameters
         ----------
         fun_reader: function
-            la fonction de saisie.
+            The function used to read an input.
         *argv: list
-            les arguments de la fonction choisie.
+            The arguments of the chosen function.
+        **kwargs: dict
+            The arguments of the chosen function.
 
         Returns
         -------
-        str_input: str
-            La saisie.
+        res:
+            The input. Can be several types.
         """
-        bool_intput_ok = False
-        # Tant que la saisie est incorrecte
-        while not bool_intput_ok:
+        bl_intput_ok = False
+        # While the input is not ok.
+        while not bl_intput_ok:
             try:
-                # Appel de la fonction de saisie
-                str_input = fun_reader(*argv)
-                bool_intput_ok = True
+                # calling the input function.
+                str_input = fun_reader(*argv, **kwargs)
+                bl_intput_ok = True
             except InputException as e:
                 print(e)
 
