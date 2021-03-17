@@ -1,4 +1,4 @@
-# Coman
+# Terminal
 
 ## How to install
 
