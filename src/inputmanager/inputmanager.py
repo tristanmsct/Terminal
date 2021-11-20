@@ -79,8 +79,8 @@ def read_yes_no(
 
     Compare the input to a set of accepted values. Returns the answer or an indicator that the answer is valid.
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     str_prompt: str
         The prompt displayed while waiting for an input.
     lst_pos_vals: list, optinal

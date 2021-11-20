@@ -82,6 +82,10 @@ class TestTerminal(unittest.TestCase):
                 bl_inc_ub=True,
             )
 
+    @patch("builtins.input", return_value="Hello")
+    def test_force_read(self, input):
+        self.assertEqual(im.force_read(im.read_line, "Input", bl_case=False, set_values=None), "Hello")
+
 
 if __name__ == "__main__":
     unittest.main()

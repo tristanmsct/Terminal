@@ -2,18 +2,15 @@
 
 ![Tests](https://github.com/tristanmsct/Terminal/actions/workflows/tests.yml/badge.svg)
 ![Coverage](https://cdn.jsdelivr.net/gh/tristanmsct/Terminal/coverage.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyPI version](https://badge.fury.io/py/inputmanager.svg)](https://badge.fury.io/py/inputmanager)
 
 ## How to install
 
-First download the whole thing and unzip it. Then navigate to the package directory. Typically :
-
-`$ cd ~/Downloads/Terminal`
-
-You can use the installer :
-
-`$ ./install`
-
-Or you can paste the "terminal" directory in the site-package of your python installation. The ./install file take care of that and install the package in your current python environment while also install all the dependencies.
+Simply run
+```bash
+pip install inputmanager
+```
 
 ## How to use terminal
 
@@ -21,7 +18,7 @@ Content of the `demo.py` file :
 
 ```Python
 # Packages
-from terminal import InputManager as im
+import inputmanager as im
 
 # %% Read line function
 

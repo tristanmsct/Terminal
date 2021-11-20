@@ -60,11 +60,7 @@ class InputException(Exception):
 # =====================================================================================================================
 
 
-def read_line(
-    str_prompt: str,
-    bl_case: Optional[bool] = False,
-    set_values: Optional[Iterable[Union[str, float, bool]]] = None,
-) -&gt; str:
+def read_line(str_prompt: str, bl_case: Optional[bool] = False, set_values: Optional[Iterable[Union[str, float, bool]]] = None,) -&gt; str:
     &#34;&#34;&#34;Read an input from the user after a prompt.
 
     The function prompt a user to enter an input, then verifies that the input is valid.
@@ -109,8 +105,8 @@ def read_yes_no(
 
     Compare the input to a set of accepted values. Returns the answer or an indicator that the answer is valid.
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     str_prompt: str
         The prompt displayed while waiting for an input.
     lst_pos_vals: list, optinal
@@ -326,11 +322,7 @@ def force_read(fun_reader: Callable[..., Union[str, float, bool]], *argv, **kwar
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read_line(
-    str_prompt: str,
-    bl_case: Optional[bool] = False,
-    set_values: Optional[Iterable[Union[str, float, bool]]] = None,
-) -&gt; str:
+<pre><code class="python">def read_line(str_prompt: str, bl_case: Optional[bool] = False, set_values: Optional[Iterable[Union[str, float, bool]]] = None,) -&gt; str:
     &#34;&#34;&#34;Read an input from the user after a prompt.
 
     The function prompt a user to enter an input, then verifies that the input is valid.
@@ -455,15 +447,17 @@ def force_read(fun_reader: Callable[..., Union[str, float, bool]], *argv, **kwar
 <dd>
 <div class="desc"><p>Ask a yes or no question and get the answer.</p>
 <p>Compare the input to a set of accepted values. Returns the answer or an indicator that the answer is valid.</p>
-<h2 id="paramters">Paramters</h2>
-<p>str_prompt: str
-The prompt displayed while waiting for an input.
-lst_pos_vals: list, optinal
-set of positive valid values the input can be. If None then a default set is used. Default is None.
-lst_neg_vals: list, optinal
-set of negative valid values the input can be. If None then a default set is used. Default is None.
-bl_res_bolean: bool, optinal
-Should the function return the answer or indicate if the answer is valid. Default is True.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>str_prompt</code></strong> :&ensp;<code>str</code></dt>
+<dd>The prompt displayed while waiting for an input.</dd>
+<dt><strong><code>lst_pos_vals</code></strong> :&ensp;<code>list, optinal</code></dt>
+<dd>set of positive valid values the input can be. If None then a default set is used. Default is None.</dd>
+<dt><strong><code>lst_neg_vals</code></strong> :&ensp;<code>list, optinal</code></dt>
+<dd>set of negative valid values the input can be. If None then a default set is used. Default is None.</dd>
+<dt><strong><code>bl_res_bolean</code></strong> :&ensp;<code>bool, optinal</code></dt>
+<dd>Should the function return the answer or indicate if the answer is valid. Default is True.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>res:</code></dt>
@@ -483,8 +477,8 @@ Should the function return the answer or indicate if the answer is valid. Defaul
 
     Compare the input to a set of accepted values. Returns the answer or an indicator that the answer is valid.
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     str_prompt: str
         The prompt displayed while waiting for an input.
     lst_pos_vals: list, optinal
