@@ -1,5 +1,7 @@
 # Terminal
 
+![Tests](https://github.com/tristanmsct/Terminal/actions/workflows/tests.yml/badge.svg)
+
 ## How to install
 
 First download the whole thing and unzip it. Then navigate to the package directory. Typically :
