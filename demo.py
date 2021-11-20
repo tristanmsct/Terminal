@@ -5,7 +5,7 @@ Created on Tue Feb 11 17:52:53 2020.
 @author: Tristan Muscat
 """
 # Packages
-import terminal as im
+import inputmanager as im
 
 # %% Read line function
 
