@@ -1,7 +1,7 @@
 # Terminal
 
 ![Tests](https://github.com/tristanmsct/Terminal/actions/workflows/tests.yml/badge.svg)
-![Tests](https://github.com/tristanmsct/Terminal/coverage.svg)
+![Coverage](https://github.com/tristanmsct/Terminal/coverage.svg)
 
 ## How to install
 
