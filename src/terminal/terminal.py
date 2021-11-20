@@ -9,6 +9,7 @@ Created on Tue Apr 23 21:58:12 2019.
 # =============================================================================
 from collections.abc import Callable
 from collections.abc import Iterable
+from typing import List
 from typing import Optional
 from typing import Union
 
@@ -70,8 +71,8 @@ def read_line(
 
 def read_yes_no(
     str_prompt: str,
-    lst_pos_vals: Optional[list[Union[str, float, bool]]] = None,
-    lst_neg_vals: Optional[list[Union[str, float, bool]]] = None,
+    lst_pos_vals: Optional[List[Union[str, float, bool]]] = None,
+    lst_neg_vals: Optional[List[Union[str, float, bool]]] = None,
     bl_res_bolean: Optional[bool] = True,
 ) -> Union[str, bool]:
     """Ask a yes or no question and get the answer.
