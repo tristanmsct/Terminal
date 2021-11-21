@@ -9,7 +9,7 @@
 
 ## How to install
 
-Simply run
+Simply run :
 ```bash
 pip install inputmanager
 ```
