@@ -1,9 +1,11 @@
 # Terminal
 
+[![PyPI version](https://badge.fury.io/py/inputmanager.svg)](https://badge.fury.io/py/inputmanager)
+![Python](https://img.shields.io/pypi/pyversions/inputmanager)
+![License](https://img.shields.io/pypi/l/inputmanager)
 ![Tests](https://github.com/tristanmsct/Terminal/actions/workflows/tests.yml/badge.svg)
 ![Coverage](https://raw.githubusercontent.com/tristanmsct/Terminal/master/coverage.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![PyPI version](https://badge.fury.io/py/inputmanager.svg)](https://badge.fury.io/py/inputmanager)
 
 ## How to install
 
