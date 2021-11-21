@@ -1,4 +1,4 @@
-# Terminal
+# Input Manager
 
 [![PyPI version](https://badge.fury.io/py/inputmanager.svg)](https://badge.fury.io/py/inputmanager)
 ![Python](https://img.shields.io/pypi/pyversions/inputmanager)
@@ -14,7 +14,7 @@ Simply run :
 pip install inputmanager
 ```
 
-## How to use terminal
+## How to use Input Manager
 
 Content of the `demo.py` file :
 
