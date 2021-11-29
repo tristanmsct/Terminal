@@ -53,7 +53,7 @@ def read_line(
     res: str
         The input validated.
     """
-    res: str = input(str_prompt )  # To prompt an input.
+    res: str = input(str_prompt)  # To prompt an input.
 
     # Gotta be sure.
     if res is None:
@@ -62,9 +62,6 @@ def read_line(
     if not bl_case and set_values:
         set_values = {str(x).lower() for x in set_values}
 
-
-
-
     # if a set is given, then we check the input is in this set.
     if set_values and res.lower() not in set_values:
         raise InputException("Input error !")
@@ -72,7 +69,10 @@ def read_line(
     return res
 
 
-def read_yes_no(    str_prompt:str,    lst_pos_vals: Optional[List[Union[str, float, bool]]]=None,    lst_neg_vals: Optional[List[Union[str, float, bool]]] = None,
+def read_yes_no(
+    str_prompt: str,
+    lst_pos_vals: Optional[List[Union[str, float, bool]]] = None,
+    lst_neg_vals: Optional[List[Union[str, float, bool]]] = None,
     bl_res_bolean: Optional[bool] = True,
 ) -> Union[str, bool]:
     """Ask a yes or no question and get the answer.
@@ -160,16 +160,22 @@ def read_numeric(
         except ValueError:
             raise InputException("Input must be numeric.")
 
-    if num_ub is not None and ((bl_inc_ub and res > num_ub) or (not bl_inc_ub and res >= num_ub)):
+    if num_ub is not None and (
+        (bl_inc_ub and res > num_ub) or (not bl_inc_ub and res >= num_ub)
+    ):
         raise InputException("Expected a smaller input.")
 
-    if num_lb is not None and ((bl_inc_lb and res < num_lb) or (not bl_inc_lb and res <= num_lb)):
+    if num_lb is not None and (
+        (bl_inc_lb and res < num_lb) or (not bl_inc_lb and res <= num_lb)
+    ):
         raise InputException("Expected a bigger input.")
 
     return res
 
 
-def force_read(fun_reader: Callable[..., Union[str, float, bool]], *argv, **kwargs) -> Union[str, float, bool]:
+def force_read(
+    fun_reader: Callable[..., Union[str, float, bool]], *argv, **kwargs
+) -> Union[str, float, bool]:
     """Loop until it gets a valid inputs.
 
     Ask an input and ask again if their is an error. It allows a program not to crash because of a typo.
