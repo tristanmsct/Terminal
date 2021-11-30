@@ -7,9 +7,8 @@ Created on Tue Apr 23 21:58:12 2019.
 # =============================================================================
 # Libraries
 # =============================================================================
-from collections.abc import Callable
-from collections.abc import Iterable
-from typing import List
+
+from typing import List, Iterable, Callable
 from typing import Optional
 from typing import Union
 
@@ -30,11 +29,7 @@ class InputException(Exception):
 # =====================================================================================================================
 
 
-def read_line(
-    str_prompt: str,
-    bl_case: Optional[bool] = False,
-    set_values: Optional[Iterable[Union[str, float, bool]]] = None,
-) -> str:
+def read_line(str_prompt: str, bl_case: Optional[bool] = False, set_values: Optional[Iterable[Union[str, float, bool]]] = None,) -> str:
     """Read an input from the user after a prompt.
 
     The function prompt a user to enter an input, then verifies that the input is valid.
@@ -160,22 +155,16 @@ def read_numeric(
         except ValueError:
             raise InputException("Input must be numeric.")
 
-    if num_ub is not None and (
-        (bl_inc_ub and res > num_ub) or (not bl_inc_ub and res >= num_ub)
-    ):
+    if num_ub is not None and ((bl_inc_ub and res > num_ub) or (not bl_inc_ub and res >= num_ub)):
         raise InputException("Expected a smaller input.")
 
-    if num_lb is not None and (
-        (bl_inc_lb and res < num_lb) or (not bl_inc_lb and res <= num_lb)
-    ):
+    if num_lb is not None and ((bl_inc_lb and res < num_lb) or (not bl_inc_lb and res <= num_lb)):
         raise InputException("Expected a bigger input.")
 
     return res
 
 
-def force_read(
-    fun_reader: Callable[..., Union[str, float, bool]], *argv, **kwargs
-) -> Union[str, float, bool]:
+def force_read(fun_reader: Callable[..., Union[str, float, bool]], *argv, **kwargs) -> Union[str, float, bool]:
     """Loop until it gets a valid inputs.
 
     Ask an input and ask again if their is an error. It allows a program not to crash because of a typo.
