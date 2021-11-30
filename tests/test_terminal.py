@@ -6,7 +6,6 @@ Created on Tue Aug 11 11:50:14 2020
 """
 import unittest  # For unit testing
 from unittest.mock import patch
-from unittest.mock import Mock
 
 import inputmanager as im
 from inputmanager import InputException
