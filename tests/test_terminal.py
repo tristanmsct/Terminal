@@ -6,6 +6,7 @@ Created on Tue Aug 11 11:50:14 2020
 """
 import unittest  # For unit testing
 from unittest.mock import patch
+from unittest.mock import Mock
 
 import inputmanager as im
 from inputmanager import InputException
@@ -15,6 +16,11 @@ class TestTerminal(unittest.TestCase):
     @patch("builtins.input", return_value="Hello")
     def test_readline(self, input):
         self.assertEqual(im.read_line("Input", bl_case=False, set_values=None), "Hello")
+
+    @patch("builtins.input", return_value=None)
+    def test_readline_none(self, input):
+        with self.assertRaises(InputException):
+            im.read_line("Input", bl_case=False, set_values=None)
 
     @patch("builtins.input", return_value="hello")
     def test_readline_case(self, input):
@@ -82,11 +88,42 @@ class TestTerminal(unittest.TestCase):
                 bl_inc_ub=True,
             )
 
+    @patch("builtins.input", return_value='TEST')
+    def test_read_numeric_str_for_int(self, input):
+        with self.assertRaises(InputException):
+            im.read_numeric(
+                "Input",
+                bl_int=True,
+                num_lb=0,
+                num_ub=10,
+                bl_inc_lb=True,
+                bl_inc_ub=True,
+            )
+
+    @patch("builtins.input", return_value='TEST')
+    def test_read_numeric_str_for_float(self, input):
+        with self.assertRaises(InputException):
+            im.read_numeric(
+                "Input",
+                bl_int=False,
+                num_lb=0,
+                num_ub=10,
+                bl_inc_lb=True,
+                bl_inc_ub=True,
+            )
+
     @patch("builtins.input", return_value="Hello")
     def test_force_read(self, input):
         self.assertEqual(
             im.force_read(im.read_line, "Input", bl_case=False, set_values=None),
             "Hello",
+        )
+
+    @patch("builtins.input", side_effect=['TEST', 7])
+    def test_force_read_error(self, input):
+        self.assertEqual(
+            im.force_read(im.read_numeric, "Input", bl_int=True, num_lb=0, num_ub=10),
+            7,
         )
 
 
